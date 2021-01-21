@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:8
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=pass
+    volumes:
+      - ./docker-entrypoint-initdb.d/mysql:/docker-entrypoint-initdb.d:ro
+  postgres:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=pass
+    volumes:
+      - ./docker-entrypoint-initdb.d/postgres:/docker-entrypoint-initdb.d:ro
+  mongo:
+    image: mongo:4
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=db
+    volumes:
+      - ./docker-entrypoint-initdb.d/mongo:/docker-entrypoint-initdb.d:ro
+
